@@ -3,6 +3,9 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from time import sleep
+import os
+
 
 def iniciar_driver():
     chrome_options = Options()
@@ -21,7 +24,25 @@ def iniciar_driver():
 
     return driver
 
+
 driver = iniciar_driver()
 driver.get('https://www.amazon.com.br/s?k=Celular&__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1YIHDLNNPWJHI&sprefix=celular%2Caps%2C190&ref=nb_sb_noss_2')
+
+sleep(20)
+driver.execute_script('window.scrollTo(0,document.body.scrollHeight);')
+sleep(2)
+
+titulos = driver.find_elements(
+    By.XPATH, '//h2[@class="a-size-mini a-spacing-none a-color-base s-line-clamp-4"]//span')
+precos = driver.find_elements(
+    By.XPATH, '//span[@class="a-price"]//span[@class="a-price-whole"]')
+links = driver.find_elements(
+    By.XPATH, '//h2[@class="a-size-mini a-spacing-none a-color-base s-line-clamp-4"]//a')
+
+for titulo, preco, link in zip(titulos, precos, links):
+    with open('precos.csv', 'a', encoding='utf-8', newline='') as arquivo:
+        link_processado = link.get_attribute('href')
+        arquivo.write(
+            f'{titulo.text};{preco.text};{link_processado}{os.linesep}')
 
 input('digite para fechar')
