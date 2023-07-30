@@ -1,5 +1,7 @@
 <h1 align="center">:file_cabinet: Bot de varedura de preços</h1>
 
+>Status do projeto: Em desenvolvimento
+
 ## :memo: Descrição
 Um bots que irá fazer a varedura do site da Amazon e guardar os precos dos celular
 
