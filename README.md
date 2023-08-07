@@ -27,4 +27,4 @@ python .\main.py
 * Web Driver;
 
 ## :soon: Implementação futura
-* Pesquisa do produto pré-determinada pelo usuario 
+* Pesquisa em outros sites
